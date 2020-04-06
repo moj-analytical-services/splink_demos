@@ -14,9 +14,11 @@ def get_spark():
 
     # Load in a jar that provides extended string comparison functions such as Jaro Winkler.
     # Splink
+#     conf.set('spark.driver.extraClassPath', 'jars/scala-udf-similarity-0.0.6.jar,jars/graphframes-0.6.0-spark2.3-s_2.11.jar')
+#     conf.set('spark.jars', 'jars/scala-udf-similarity-0.0.6.jar,jars/graphframes-0.6.0-spark2.3-s_2.11.jar')
     conf.set('spark.driver.extraClassPath', 'jars/scala-udf-similarity-0.0.6.jar')
     conf.set('spark.jars', 'jars/scala-udf-similarity-0.0.6.jar')
-
+    conf.set('spark.jars.packages', 'graphframes:graphframes:0.6.0-spark2.3-s_2.11')
 
     # WARNING:
     # These config options are appropriate only if you're running Spark locally!!!
@@ -24,7 +26,7 @@ def get_spark():
     conf.set("spark.sql.shuffle.partitions", "8")
 
     sc = SparkContext.getOrCreate(conf=conf)
-
+    sc.setCheckpointDir("temp_graphframes/")
     spark = SparkSession(sc)
 
     # Register UDFs

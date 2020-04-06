@@ -1,3 +1,7 @@
+df_e_temp/
+gammas_temp/
+temp_graphframes/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
