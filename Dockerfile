@@ -1,9 +1,9 @@
-FROM jupyter/all-spark-notebook:latest
+FROM jupyter/all-spark-notebook:8882c505faa8
 
 COPY . ${HOME}
 USER root
 
-RUN git clone -b break_lineage_api https://github.com/moj-analytical-services/splink.git
+RUN git clone https://github.com/moj-analytical-services/splink.git
 
 RUN pip install splink/
 RUN pip install altair
