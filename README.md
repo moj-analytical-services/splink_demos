@@ -1,6 +1,6 @@
 # splink_demos
 
-This repo contains interactive notebooks containing demonstration and tutorial for the [splink](https://github.com/moj-analytical-services/splink) record linking library
+This repo contains interactive notebooks containing demonstration and tutorial for the Splink record linking library, the homepage for which is [here](https://github.com/moj-analytical-services/splink).
 
 ## Running these notebooks interactively
 
