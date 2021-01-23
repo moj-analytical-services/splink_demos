@@ -1,4 +1,4 @@
-FROM jupyter/all-spark-notebook:8882c505faa8
+FROM jupyter/all-spark-notebook:703d8b2dcb88
 
 COPY . ${HOME}
 USER root
