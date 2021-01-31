@@ -15,7 +15,9 @@ def get_spark():
 
     # Load in a jar that provides extended string comparison functions such as Jaro Winkler.
     # Splink
-    conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.7.jar")
+
+    # No longer needed in spark 3.0?
+    # conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.7.jar")
     conf.set("spark.jars", "jars/scala-udf-similarity-0.0.7.jar")
     conf.set("spark.jars.packages", "graphframes:graphframes:0.8.0-spark3.0-s_2.12")
 
