@@ -15,9 +15,6 @@ RUN pip install typeguard
 
 RUN chown -R ${NB_UID} ${HOME}
 
-# USER ${NB_USER}
-RUN fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
 USER ${NB_USER}
 
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9-src.zip"
