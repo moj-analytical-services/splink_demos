@@ -25,7 +25,7 @@ def get_spark():
     # conf.set("spark.jars.packages", "graphframes:graphframes:0.6.0-spark2.3-s_2.11")
 
     conf.set("spark.sql.execution.arrow.enabled", "true")
-    conf.set("spark.executorEnv.ARROW_PRE_0_15_IPC_FORMAT", "1")
+    # conf.set("spark.executorEnv.ARROW_PRE_0_15_IPC_FORMAT", "1")
 
     # WARNING:
     # These config options are appropriate only if you're running Spark locally!!!
