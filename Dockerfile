@@ -8,6 +8,7 @@ RUN pip install splink
 RUN pip install altair
 RUN pip install graphframes
 RUN pip install typeguard
+RUN conda install splink_graph
 
 # Don't know why this is needed - something to do with root permissions?
 RUN conda install pyspark
