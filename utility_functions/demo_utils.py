@@ -18,12 +18,15 @@ def get_spark():
 
     # No longer needed in spark 3.0?
     # conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.7.jar")
-    conf.set("spark.jars", "jars/scala-udf-similarity-0.0.7.jar,jars/graphframes-0.7.0-spark2.3-s_2.11.jar")
+    conf.set(
+        "spark.jars",
+        "jars/scala-udf-similarity-0.0.7.jar,jars/graphframes-0.8.1-spark3.0-s_2.12.jar",
+    )
     # conf.set("spark.jars.packages", "graphframes:graphframes:0.6.0-spark2.3-s_2.11")
-    
+
     conf.set("spark.sql.execution.arrow.enabled", "true")
-    conf.set("spark.executorEnv.ARROW_PRE_0_15_IPC_FORMAT", "1")
-    
+    # conf.set("spark.executorEnv.ARROW_PRE_0_15_IPC_FORMAT", "1")
+
     # WARNING:
     # These config options are appropriate only if you're running Spark locally!!!
     conf.set("spark.driver.memory", "4g")
