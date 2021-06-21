@@ -13,7 +13,8 @@ RUN pip install "git+https://github.com/moj-analytical-services/splink_graph.git
 # Don't know why this is needed - something to do with root permissions?
 # RUN conda install pyspark
 
-
 RUN chown -R ${NB_UID} ${HOME}
+
 USER ${NB_USER}
 
+ENV PYTHONPATH "${PYTHONPATH}:/usr/local/spark/python:/usr/local/spark/python/lib/py4j-0.10.9-src.zip"
