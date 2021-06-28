@@ -8,6 +8,7 @@ from pyspark.context import SparkContext, SparkConf
 from pyspark.sql import SparkSession, Window
 from pyspark.sql.types import StructType
 import pyspark.sql.functions as f
+import pyspark
 
 
 def get_spark():
@@ -16,13 +17,30 @@ def get_spark():
     # Load in a jar that provides extended string comparison functions such as Jaro Winkler.
     # Splink
 
-    # No longer needed in spark 3.0
-    # conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.7.jar")
-    conf.set(
+    if (pyspark.__version__).startswith("3"):
+        
+        # graphframe jars compiled in scala 2.12 suitable for pyspark 3.x
+        conf.set(
         "spark.jars",
         "jars/scala-udf-similarity-0.0.8.jar,jars/graphframes-0.8.0-spark3.0-s_2.12.jar",
-    )
+        )
+    else:
+        # graphframe jars compiled in scala 2.11 suitable for pyspark 2.x
+        conf.set(
+        "spark.jars",
+        "jars/scala-udf-similarity-0.0.8.jar,jars/graphframes-0.7.0-spark2.3-s_2.11.jar",
+        )
+        conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.8.jar,jars/graphframes-0.7.0-spark2.3-s_2.11.jar")
+        
+        # solution to issue described in https://issues.apache.org/jira/browse/SPARK-29367
+        # needed in pyspark 2.x only
+        conf.set("spark.sql.execution.arrow.enabled", "true")
+        conf.set("spark.executorEnv.ARROW_PRE_0_15_IPC_FORMAT", "1")
+        
     # conf.set("spark.jars.packages", "graphframes:graphframes:0.8.0-spark3.0-s_2.12")
+    # the above line loads graphframes dynamically. However:
+    # its not as suitable for systems without an interent connection
+    
 
     # WARNING:
     # These config options are appropriate only if you're running Spark locally!!!
