@@ -39,6 +39,16 @@
       }
     },
     {
+      "name": "collideRadius",
+      "value": 5,
+      "bind": {
+        "input": "range",
+        "min": 5,
+        "max": 30,
+        "step": 0.1
+      }
+    },
+    {
       "name": "static",
       "value": false,
       "bind": {
@@ -126,8 +136,8 @@
         "field": "eigen_centrality"
       },
       "range": [
-        0,
-        1000
+        100,
+        1500
       ]
     },
     {
@@ -139,8 +149,8 @@
         1
       ],
       "range": [
-        10,
-        400
+        50,
+        800
       ]
     }
   ],
@@ -212,7 +222,7 @@
             {
               "force": "collide",
               "radius": {
-                "field": "eigen_centrality"
+                "expr": "collideRadius"
               }
             },
             {
