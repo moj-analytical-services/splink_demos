@@ -118,14 +118,15 @@
     },
     {
       "name": "link_color",
-      "type": "pow",
+      "type": "linear",
       "domain": {
         "data": "link-data",
         "field": "edge_betweenness"
       },
       "range": {
-        "scheme": "yelloworangered"
-      }
+        "scheme": "redyellowgreen"
+      },
+      "reverse": true
     },
     {
       "name": "nodeRadius",
@@ -144,13 +145,13 @@
       "name": "edge_length_scale",
       "type": "linear",
       "nice": false,
-      "domain": [
-        0,
-        1
-      ],
+      "domain": {
+        "data": "link-data",
+        "field": "edge_betweenness"
+      },
       "range": [
         50,
-        800
+        400
       ]
     }
   ],
