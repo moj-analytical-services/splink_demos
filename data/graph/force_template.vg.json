@@ -6,20 +6,45 @@
   "padding": 0,
   "autosize": "none",
   "signals": [
-    {"name": "cx", "update": "width / 2"},
-    {"name": "cy", "update": "height / 2"},
-    {"name": "nodeRadius", "value": 10},
+    {
+      "name": "cx",
+      "update": "width / 2"
+    },
+    {
+      "name": "cy",
+      "update": "height / 2"
+    },
+    {
+      "name": "nodeRadius",
+      "value": 10
+    },
     {
       "name": "nodeCharge",
       "value": -3,
-      "bind": {"input": "range", "min": -20, "max": 10, "step": 1}
+      "bind": {
+        "input": "range",
+        "min": -20,
+        "max": 10,
+        "step": 1
+      }
     },
     {
       "name": "linkDistance",
       "value": 83,
-      "bind": {"input": "range", "min": 1, "max": 300, "step": 1}
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 300,
+        "step": 1
+      }
     },
-    {"name": "static", "value": false, "bind": {"input": "checkbox"}},
+    {
+      "name": "static",
+      "value": false,
+      "bind": {
+        "input": "checkbox"
+      }
+    },
     {
       "description": "State variable for active node fix status.",
       "name": "fix",
@@ -29,7 +54,10 @@
           "events": "symbol:mouseout[!event.buttons], window:mouseup",
           "update": "false"
         },
-        {"events": "symbol:mouseover", "update": "fix || true"},
+        {
+          "events": "symbol:mouseover",
+          "update": "fix || true"
+        },
         {
           "events": "[symbol:mousedown, window:mouseup] > window:mousemove!",
           "update": "xy()",
@@ -42,104 +70,150 @@
       "name": "node",
       "value": null,
       "on": [
-        {"events": "symbol:mouseover", "update": "fix === true ? item() : node"}
+        {
+          "events": "symbol:mouseover",
+          "update": "fix === true ? item() : node"
+        }
       ]
     },
     {
       "description": "Flag to restart Force simulation upon data changes.",
       "name": "restart",
       "value": false,
-      "on": [{"events": {"signal": "fix"}, "update": "fix && fix.length"}]
+      "on": [
+        {
+          "events": {
+            "signal": "fix"
+          },
+          "update": "fix && fix.length"
+        }
+      ]
     }
   ],
   "data": [
-    {
-      "name": "node-data",
-      "url": "data.json",
-      "format": {
-        "type": "json",
-        "property": "nodes"
-      }
-    },
-    {
-      "name": "link-data",
-      "url": "data.json",
-      "format": {
-        "type": "json",
-        "property": "links"
-      }
-    }
+    {},
+    {}
   ],
   "scales": [
     {
       "name": "color",
       "type": "ordinal",
-      "domain": {"data": "node-data", "field": "group"},
-      "range": {"scheme": "category20c"}
+      "domain": {
+        "data": "node-data",
+        "field": "cluster_id"
+      },
+      "range": {
+        "scheme": "category20c"
+      }
     },
     {
       "name": "link_color",
       "type": "pow",
-      "domain": {"data": "link-data", "field": "value"},
-      "range": {"scheme": "yelloworangered"}
+      "domain": {
+        "data": "link-data",
+        "field": "edge_betweenness"
+      },
+      "range": {
+        "scheme": "yelloworangered"
+      }
     },
     {
       "name": "nodeRadius",
       "type": "linear",
-      "domain": {"data": "node-data", "field": "eigen_centrality"},
-      "range": [0, 1000]
+      "domain": {
+        "data": "node-data",
+        "field": "eigen_centrality"
+      },
+      "range": [
+        0,
+        1000
+      ]
     }
   ],
-
-  "legends": [
-    {
-      "fill": "color",
-      "orient": "bottom-left",
-      "title": "Component Linkage Network",
-      "gradientLength":150,
-      "direction":"vertical"
-    }
-  ],
-
+  "legends": [],
   "marks": [
     {
       "name": "nodes",
       "type": "symbol",
       "zindex": 1,
-      "from": {"data": "node-data"},
+      "from": {
+        "data": "node-data"
+      },
       "on": [
         {
           "trigger": "fix",
           "modify": "node",
           "values": "fix === true ? {fx: node.x, fy: node.y} : {fx: fix[0], fy: fix[1]}"
         },
-        {"trigger": "!fix", "modify": "node", "values": "{fx: null, fy: null}"}
+        {
+          "trigger": "!fix",
+          "modify": "node",
+          "values": "{fx: null, fy: null}"
+        }
       ],
       "encode": {
         "enter": {
-          "size": {"field": "eigen_centrality", "scale": "nodeRadius"},
-          "fill": {"scale": "color", "field": "group"},
-          "stroke": {"value": "white"},
-          "tooltip": {"signal": "datum"}
+          "size": {
+            "field": "eigen_centrality",
+            "scale": "nodeRadius"
+          },
+          "fill": {
+            "scale": "color",
+            "field": "cluster_id"
+          },
+          "stroke": {
+            "value": "white"
+          },
+          "tooltip": {
+            "signal": "datum.tooltip"
+          }
         },
-        "update": {"cursor": {"value": "pointer"}}
+        "update": {
+          "cursor": {
+            "value": "pointer"
+          }
+        }
       },
       "transform": [
         {
           "type": "force",
           "iterations": 300,
-          "restart": {"signal": "restart"},
-          "static": {"signal": "static"},
+          "restart": {
+            "signal": "restart"
+          },
+          "static": {
+            "signal": "static"
+          },
           "signal": "force",
           "forces": [
-            {"force": "center", "x": {"signal": "cx"}, "y": {"signal": "cy"}},
-            {"force": "collide", "radius": {"field": "eigen_centrality"}},
-            {"force": "nbody", "strength": {"signal": "nodeCharge"}},
+            {
+              "force": "center",
+              "x": {
+                "signal": "cx"
+              },
+              "y": {
+                "signal": "cy"
+              }
+            },
+            {
+              "force": "collide",
+              "radius": {
+                "field": "eigen_centrality"
+              }
+            },
+            {
+              "force": "nbody",
+              "strength": {
+                "signal": "nodeCharge"
+              }
+            },
             {
               "force": "link",
-              "id": "datum.name",
+              "id": "datum.node_id",
               "links": "link-data",
-              "distance": {"signal": "linkDistance"}
+              "distance": {
+                "signal": "linkDistance"
+              }
             }
           ]
         }
@@ -147,19 +221,30 @@
     },
     {
       "type": "path",
-      "from": {"data": "link-data"},
+      "from": {
+        "data": "link-data"
+      },
       "interactive": true,
       "encode": {
         "update": {
-          "stroke": {"scale": "link_color", "field": "value"},
-          "tooltip": {"signal": "datum.comparison"},
-          "strokeWidth": {"value": 2}
+          "stroke": {
+            "scale": "link_color",
+            "field": "edge_betweenness"
+          },
+          "tooltip": {
+            "signal": "datum.tooltip"
+          },
+          "strokeWidth": {
+            "value": 2
+          }
         }
       },
       "transform": [
         {
           "type": "linkpath",
-          "require": {"signal": "force"},
+          "require": {
+            "signal": "force"
+          },
           "shape": "line",
           "sourceX": "datum.source.x",
           "sourceY": "datum.source.y",
@@ -170,18 +255,37 @@
     },
     {
       "type": "text",
-      "from": {"data": "nodes"},
+      "from": {
+        "data": "nodes"
+      },
       "interactive": false,
       "zindex": 2,
       "encode": {
         "enter": {
-          "align": {"value": "center"},
-          "baseline": {"value": "middle"},
-          "fontSize": {"value": 12},
-          "fontWeight": {"value": "bold"},
-          "text": {"field": "datum.name"}
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "middle"
+          },
+          "fontSize": {
+            "value": 12
+          },
+          "fontWeight": {
+            "value": "bold"
+          },
+          "text": {
+            "field": "datum.node_id"
+          }
         },
-        "update": {"x": {"field": "x"}, "y": {"field": "y"}}
+        "update": {
+          "x": {
+            "field": "x"
+          },
+          "y": {
+            "field": "y"
+          }
+        }
       }
     }
   ]
