@@ -35,13 +35,6 @@
       }
     },
     {
-      "name": "static",
-      "value": false,
-      "bind": {
-        "input": "checkbox"
-      }
-    },
-    {
       "description": "State variable for active node fix status.",
       "name": "fix",
       "value": false,
@@ -194,9 +187,7 @@
           "restart": {
             "signal": "restart"
           },
-          "static": {
-            "signal": "static"
-          },
+          "static": false,
           "signal": "force",
           "forces": [
             {
