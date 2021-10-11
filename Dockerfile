@@ -8,6 +8,7 @@ RUN pip install splink
 RUN pip install altair
 RUN pip install graphframes
 RUN pip install typeguard
+RUN pip install splink-visualise-clusters==0.0.4
 
 # Don't know why this is needed - something to do with root permissions?
 # RUN conda install pyspark
