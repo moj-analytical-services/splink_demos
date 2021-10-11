@@ -63,6 +63,7 @@ def node_data_with_tooltip(
 
 def get_html_cluster_metrics(graphstats_row_as_df):
     c = graphstats_row_as_df.to_dict(orient="records")[0]
+    c["radius"] = None
     table = """
     <h2>Cluster {cluster_id}</h2>
     <table>
@@ -118,13 +119,19 @@ def get_html_cluster_metrics(graphstats_row_as_df):
 
 
 def display_outputs(
-    cluster_id, df_e, nodestats, graphstats, edge_metric="edge_betweenness"
+    cluster_id,
+    df_e,
+    nodestats,
+    graphstats,
+    edge_metric="edge_betweenness",
+    start_width=500,
+    start_height=500,
 ):
 
     link_data = link_data_with_tooltip(
         df_e,
         cluster_id=cluster_id,
-        cols_to_retain=["match_probability", "edge_betweenness", "match_score"],
+        cols_to_retain=["weight", "edge_betweenness"],
         cols_to_drop_from_tooltip=["cluster_id", "src", "dst", "group_l", "group_r"],
     )
 
@@ -140,22 +147,22 @@ def display_outputs(
 
     vl["data"][1] = {"name": "link-data", "values": link_data}
 
-    vl["width"] = 400
-    vl["height"] = 400
+    vl["signals"][4]["value"] = start_height
+    vl["signals"][5]["value"] = start_width
 
-    if edge_metric == "match_score":
-        vl["scales"][1]["domain"]["field"] = "match_score"
+    if edge_metric == "weight":
+        vl["scales"][1]["domain"]["field"] = "weight"
 
-        vl["scales"][1]["reverse"] = False
-        vl["marks"][1]["encode"]["update"]["stroke"]["field"] = "match_score"
+        vl["scales"][1]["reverse"] = True
+        vl["marks"][1]["encode"]["update"]["stroke"]["field"] = "weight"
 
         # Scale 3 is edge_length_scale
-        vl["scales"][3]["domain"] = {"data": "link-data", "field": "match_score"}
-        vl["scales"][3]["reverse"] = True
+        vl["scales"][3]["domain"] = {"data": "link-data", "field": "weight"}
+        vl["scales"][3]["reverse"] = False
 
         vl["marks"][0]["transform"][0]["forces"][3]["distance"][
             "expr"
-        ] = "scale('edge_length_scale',datum.match_score)*linkDistance"
+        ] = "scale('edge_length_scale',datum.weight)*linkDistance"
 
     script = f"""
        var script = document.createElement('script');
@@ -168,7 +175,7 @@ def display_outputs(
         script.src = '//cdn.jsdelivr.net/npm/vega-embed@6';
         document.head.appendChild(script);
 
-        var spec = `{json.dumps(vl)}`
+        var spec = `{json.dumps(vl, default=convert)}`
         spec= JSON.parse(spec)
         vegaEmbed(element, spec).then(function(result) {{
           }}).catch(console.error);
@@ -195,6 +202,10 @@ def display_outputs(
     display(Markdown("### Edges"))
     display(df_e[df_e["cluster_id"] == cluster_id])
     # display(print(json.dumps(vl,indent=4)))
+    
+    with open('vega_spec_with_data.vg.json', 'w') as f:
+        json.dump(vl, f, default=convert)
+    
 
 
 def get_dd_cluster_id(df_nodestats):
@@ -202,14 +213,14 @@ def get_dd_cluster_id(df_nodestats):
 
     dd_cluster_id = widgets.Dropdown(
         options=dd_values,
-        value=39,
+        value=dd_values[0],
         description="Cluster:",
     )
 
     return dd_cluster_id
 
 
-def get_interface(df_e, df_nodestats, df_graphstats):
+def get_interface(df_e, df_nodestats, df_graphstats, start_width=500, start_height=500):
     def on_change(change):
         output.clear_output()
         cluster_id = dd_cluster_id.value
@@ -217,7 +228,13 @@ def get_interface(df_e, df_nodestats, df_graphstats):
 
         with output:
             display_outputs(
-                cluster_id, df_e, df_nodestats, df_graphstats, edge_metric=edge_metric
+                cluster_id,
+                df_e,
+                df_nodestats,
+                df_graphstats,
+                edge_metric=edge_metric,
+                start_width=start_width,
+                start_height=start_height,
             )
 
     output = widgets.Output()
@@ -225,7 +242,7 @@ def get_interface(df_e, df_nodestats, df_graphstats):
     dd_cluster_id = get_dd_cluster_id(df_nodestats)
 
     dd_edge_metric = widgets.RadioButtons(
-        description="Edge metric", options=["edge_betweenness", "match_score"]
+        description="Edge metric", options=["edge_betweenness", "weight"]
     )
 
     dd_cluster_id.observe(on_change, names="value")
@@ -235,3 +252,10 @@ def get_interface(df_e, df_nodestats, df_graphstats):
     display(dd_edge_metric)
     display(output)
     on_change(None)
+
+
+def convert(o):
+    if "NA" in repr(type(o)):
+        return None
+    else:
+        return int(o)
