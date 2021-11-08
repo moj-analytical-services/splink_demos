@@ -1,13 +1,13 @@
 from IPython.display import display, Markdown
 from splink.validate import _get_schema
 
-from IPython.display import display, Markdown
-from splink.validate import _get_schema
-
 from pyspark.context import SparkContext, SparkConf
 from pyspark.sql import SparkSession, Window
 from pyspark.sql.types import StructType
 import pyspark.sql.functions as f
+
+from splink.jar_location import similarity_jar_location
+
 
 
 def get_spark():
@@ -16,13 +16,13 @@ def get_spark():
     # Load in a jar that provides extended string comparison functions such as Jaro Winkler.
     # Splink
 
-    # No longer needed in spark 3.0
-    # conf.set("spark.driver.extraClassPath", "jars/scala-udf-similarity-0.0.7.jar")
-    conf.set(
-        "spark.jars",
-        "jars/scala-udf-similarity-0.0.8.jar,jars/graphframes-0.8.0-spark3.0-s_2.12.jar",
-    )
-    # conf.set("spark.jars.packages", "graphframes:graphframes:0.8.0-spark3.0-s_2.12")
+    loc = similarity_jar_location()
+    
+    # The folowing line was needed in Spark 2.4.5 but not Spark 3.0
+    # conf.set("spark.driver.extraClassPath", f"{loc")
+
+    conf.set("spark.jars",f"{loc},jars/graphframes-0.8.0-spark3.0-s_2.12.jar")
+
 
     # WARNING:
     # These config options are appropriate only if you're running Spark locally!!!
@@ -46,63 +46,3 @@ def get_spark():
     )
     return spark
 
-
-def render_key_as_markdown(key, is_col=False):
-    md = []
-    schema = _get_schema()
-    if is_col:
-        value = schema["properties"]["comparison_columns"]["items"]["properties"][key]
-    else:
-        value = schema["properties"][key]
-
-    if "title" in value:
-        md.append(f"**Summary**:\n{value['title']}")
-
-    if "description" in value:
-
-        md.append(f"\n**Description**:\n{value['description']}")
-
-    if "type" in value:
-        md.append(f"\n**Data type**: {value['type']}")
-
-    if "enum" in value:
-
-        enum = [f"`{e}`" for e in value["enum"]]
-        enum = ", ".join(enum)
-        md.append(f"\n**Possible values**: {enum}")
-
-    if "default" in value:
-        md.append(f"\n**Default value if not provided**: {value['default']}")
-
-    if "examples" in value:
-        if is_col:
-
-            if len(value["examples"]) > 0:
-                ex = value["examples"][0]
-                if type(ex) == str:
-                    ex = f'"{ex}"'
-
-                example = (
-                    "```",
-                    "settings = {",
-                    '    "comparison_columns: [',
-                    "    {",
-                    f'        "{key}": {ex}',
-                    "    }",
-                    "]",
-                    "```",
-                )
-                example = "\n".join(example)
-                md.append("\n**Example**:\n")
-                md.append(example)
-        else:
-            if len(value["examples"]) > 0:
-                ex = value["examples"][0]
-                if type(ex) == str:
-                    ex = f'"{ex}"'
-                example = ("```", "settings = {", f'    "{key}": {ex}', "}", "```")
-                example = "\n".join(example)
-                md.append("\n**Example**:\n")
-                md.append(example)
-
-    return Markdown("\n".join(md))
