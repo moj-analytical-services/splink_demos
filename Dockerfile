@@ -9,6 +9,7 @@ RUN pip install altair
 RUN pip install graphframes
 RUN pip install typeguard
 RUN pip install pip install splink-cluster-studio==0.1.0
+RUN pip install pip install splink-comparison-viewer==0.1.2
 
 # Don't know why this is needed - something to do with root permissions?
 # RUN conda install pyspark
