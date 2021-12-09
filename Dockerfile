@@ -4,7 +4,7 @@ FROM jupyter/pyspark-notebook:29edefbcb06a
 COPY . ${HOME}
 USER root
 
-RUN pip install splink==2.0.1
+RUN pip install splink==2.0.3
 RUN pip install altair
 RUN pip install graphframes
 RUN pip install typeguard
