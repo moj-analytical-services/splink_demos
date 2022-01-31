@@ -1,6 +1,6 @@
 <h1>Linking cluster IDs to cases in different snaphot dates</h1>
 
-The text below originates from a [ASD Slack](asdslack.slack.com) [thread](https://asdslack.slack.com/archives/C01VDDG5V5W/p1643122229016000) where Robin Linacre 
+The text below originates from a [ASD Slack](asdslack.slack.com) [thread](https://asdslack.slack.com/archives/C01VDDG5V5W/p1643122229016000) (not all will have access to these links) where Robin Linacre 
 ([RobinL](https://github.com/RobinL)), Sam Linsday ([samnlinsday](https://github.com/samnlindsay)) and Ian Rickard (ian-rickard) explain how to correctly link 
 `Splink` cluster IDs to cases in different snaphot dates.
 
