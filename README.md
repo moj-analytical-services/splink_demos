@@ -24,7 +24,7 @@ To download the example notebooks, simply [clone](https://docs.github.com/en/rep
 git clone git@github.com:moj-analytical-services/splink_demos.git
 ```
 
-Then install the package list (which includes `pyspark`) found within a [venv](https://docs.python.org/3/library/venv.html) using:
+Then install the package list (which includes `pyspark`) within a [venv](https://docs.python.org/3/library/venv.html) using:
 ```
 pip3 install -r requirements.txt
 ```
