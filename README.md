@@ -17,14 +17,19 @@ You can check the installation went correctly by using:
 > `java -version`
 within a terminal instance. It should return details of your java installation.
 
-If you have multiple java installations, you may need to change the version of java you're currently using. 
+If you have multiple java installations, you may need to change the version of java you're currently using.
 
 To download the example notebooks, simply [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository#cloning-a-repository) this repository:
 ```
 git clone git@github.com:moj-analytical-services/splink_demos.git
 ```
 
-Then install the package list (which includes `pyspark`) within a [venv](https://docs.python.org/3/library/venv.html) using:
+Create a [virtual environment](https://docs.python.org/3/library/venv.html) using:
+```
+python3 -m venv <name_of_venv>
+```
+
+and finally install the package list (which includes `pyspark`) with:
 ```
 pip3 install -r requirements.txt
 ```
