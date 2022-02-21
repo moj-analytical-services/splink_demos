@@ -1,7 +1,4 @@
-altair==4.2.0
 graphframes==0.6
+importlib-resources==5.4.0
 jupyter==1.0.0
-pyspark==3.1.1
-splink==2.1.0rc1
-splink-cluster-studio==0.1.0
-splink-comparison-viewer==0.1.4
+splink @ git+https://github.com/moj-analytical-services/splink.git@538616e53b8474999377d8ed3b443f631c986c4c
