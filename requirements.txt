@@ -1,4 +1,5 @@
 graphframes==0.6
 importlib-resources==5.4.0
 jupyter==1.0.0
+pyarrow==7.0.0
 splink@git+https://github.com/moj-analytical-services/splink.git@497e1b250a8720f17d7c0f83f8d9238da95b4472
