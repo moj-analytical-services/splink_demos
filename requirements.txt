@@ -2,4 +2,4 @@ graphframes==0.6
 importlib-resources==5.4.0
 jupyter==1.0.0
 pyarrow==7.0.0
-splink@git+https://github.com/moj-analytical-services/splink.git@33dbad41588f081ccd1e0ada1c9a475855077efd
+splink@git+https://github.com/moj-analytical-services/splink.git@49a076b0b59c72b0fc5685c41d46228a8c2d8047
