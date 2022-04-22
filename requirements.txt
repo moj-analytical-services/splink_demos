@@ -2,4 +2,4 @@ graphframes==0.6
 importlib-resources==5.4.0
 jupyter==1.0.0
 pyarrow==7.0.0
-splink==3.0.0.dev5
+splink==3.0.0.dev6
