@@ -42,6 +42,6 @@ pip3 install -r requirements.txt
 and, if you want to use jupyter, add a kernel corresopnding to your venv:
 
 ```
-python -m ipykernel install --user --name=my-virtualenv-name
+python -m ipykernel install --user --name=splink_demos
 jupyter lab
 ```
