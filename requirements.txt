@@ -1,7 +1,5 @@
-altair==4.2.0
-graphframes==0.6
-jupyter==1.0.0
-pyspark==3.1.1
-splink==2.1.0rc1
-splink-cluster-studio==0.1.0
-splink-comparison-viewer==0.1.4
+importlib-resources==5.4.0
+jupyterlab==3.4.2
+pyarrow==7.0.0
+splink==3.0.0
+ipywidgets==7.7.0
