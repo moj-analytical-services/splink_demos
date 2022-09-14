@@ -1,0 +1,28 @@
+name: Test tutorials with pytest
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      #----------------------------------------------
+      # Make sure that the demo notebooks run without error
+      #----------------------------------------------
+      - name: Test with pytest
+        run: |
+          python -m pytest --nbmake --nbmake-kernel=python3 0[0-6]_*ipynb
+          python -m pytest --nbmake --nbmake-kernel=python3 deduplicate_50k_synthetic.ipynb
+          python -m pytest --nbmake --nbmake-kernel=python3 real_time_record_linkage.ipynb
