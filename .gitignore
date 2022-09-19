@@ -1,7 +1,6 @@
-df_e_temp/
-gammas_temp/
-temp_graphframes/
-deleteme/
+
+tmp_checkpoints/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
