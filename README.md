@@ -6,7 +6,7 @@ This repo contains interactive notebooks containing demonstration and tutorial f
 
 You can run these notebooks in an interactive Jupyter notebook by clicking the button below:
 
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/moj-analytical-services/splink_demos/splink3_demos?urlpath=lab)
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/moj-analytical-services/splink_demos/master?urlpath=lab)
 
 ## Running these notebooks locally in VSCode
 

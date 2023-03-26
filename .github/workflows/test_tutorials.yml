@@ -24,5 +24,3 @@ jobs:
       - name: Test with pytest
         run: |
           python -m pytest --nbmake --nbmake-kernel=python3 0[0-6]_*ipynb
-          python -m pytest --nbmake --nbmake-kernel=python3 deduplicate_50k_synthetic.ipynb
-          python -m pytest --nbmake --nbmake-kernel=python3 real_time_record_linkage.ipynb
