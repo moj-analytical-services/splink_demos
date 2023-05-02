@@ -1,118 +1,135 @@
 {
-    "probability_two_random_records_match": 0.009738088021208104,
     "link_type": "dedupe_only",
     "comparisons": [
         {
             "output_column_name": "first_name",
             "comparison_levels": [
                 {
-                    "sql_condition": "first_name_l IS NULL OR first_name_r IS NULL",
+                    "sql_condition": "\"first_name_l\" IS NULL OR \"first_name_r\" IS NULL",
                     "label_for_charts": "Null",
                     "is_null_level": true
                 },
                 {
-                    "sql_condition": "first_name_l = first_name_r",
-                    "label_for_charts": "Exact match",
-                    "m_probability": 0.49563564273680927,
+                    "sql_condition": "\"first_name_l\" = \"first_name_r\"",
+                    "label_for_charts": "Exact match first_name",
+                    "m_probability": 0.4950008259942025,
                     "u_probability": 0.0057935713975033705
                 },
                 {
-                    "sql_condition": "levenshtein(first_name_l, first_name_r) <= 2",
-                    "label_for_charts": "levenshtein <= 2",
-                    "m_probability": 0.27072063394450885,
-                    "u_probability": 0.010119901990634016
+                    "sql_condition": "jaro_winkler_similarity(\"first_name_l\", \"first_name_r\") >= 0.95",
+                    "label_for_charts": "Jaro_winkler_similarity >= 0.95",
+                    "m_probability": 0.09273619163758415,
+                    "u_probability": 0.0013251562205500703
+                },
+                {
+                    "sql_condition": "jaro_winkler_similarity(\"first_name_l\", \"first_name_r\") >= 0.88",
+                    "label_for_charts": "Jaro_winkler_similarity >= 0.88",
+                    "m_probability": 0.1344402671534482,
+                    "u_probability": 0.002566221564960202
                 },
                 {
                     "sql_condition": "ELSE",
                     "label_for_charts": "All other comparisons",
-                    "m_probability": 0.23364372331868066,
-                    "u_probability": 0.9840865266118626
+                    "m_probability": 0.2778227152147652,
+                    "u_probability": 0.9903150508169863
                 }
             ],
-            "comparison_description": "Exact match vs. levenshtein at threshold 2 vs. anything else"
+            "comparison_description": "Exact match vs. First_Name within jaro_winkler thresholds 0.95, 0.88 vs. anything else"
         },
         {
             "output_column_name": "surname",
             "comparison_levels": [
                 {
-                    "sql_condition": "surname_l IS NULL OR surname_r IS NULL",
+                    "sql_condition": "\"surname_l\" IS NULL OR \"surname_r\" IS NULL",
                     "label_for_charts": "Null",
                     "is_null_level": true
                 },
                 {
-                    "sql_condition": "surname_l = surname_r",
-                    "label_for_charts": "Exact match",
-                    "m_probability": 0.4409309402659144,
+                    "sql_condition": "\"surname_l\" = \"surname_r\"",
+                    "label_for_charts": "Exact match surname",
+                    "m_probability": 0.4407501674465693,
                     "u_probability": 0.004889975550122249
                 },
                 {
-                    "sql_condition": "levenshtein(surname_l, surname_r) <= 1",
-                    "label_for_charts": "levenshtein <= 1",
-                    "m_probability": 0.187141318174158,
-                    "u_probability": 0.002364383782476692
+                    "sql_condition": "jaro_winkler_similarity(\"surname_l\", \"surname_r\") >= 0.95",
+                    "label_for_charts": "Jaro_winkler_similarity >= 0.95",
+                    "m_probability": 0.15110165440178192,
+                    "u_probability": 0.0017673171707401536
                 },
                 {
-                    "sql_condition": "levenshtein(surname_l, surname_r) <= 2",
-                    "label_for_charts": "levenshtein <= 2",
-                    "m_probability": 0.11323146703102362,
-                    "u_probability": 0.005009388872469557
+                    "sql_condition": "jaro_winkler_similarity(\"surname_l\", \"surname_r\") >= 0.88",
+                    "label_for_charts": "Jaro_winkler_similarity >= 0.88",
+                    "m_probability": 0.12401320066204115,
+                    "u_probability": 0.0022031757973078265
                 },
                 {
                     "sql_condition": "ELSE",
                     "label_for_charts": "All other comparisons",
-                    "m_probability": 0.2586962745289042,
-                    "u_probability": 0.9877362517949315
+                    "m_probability": 0.2841349774896076,
+                    "u_probability": 0.9911395314818298
                 }
             ],
-            "comparison_description": "Exact match vs. levenshtein at thresholds 1, 2 vs. anything else"
+            "comparison_description": "Exact match vs. Surname within jaro_winkler thresholds 0.95, 0.88 vs. anything else"
         },
         {
             "output_column_name": "dob",
             "comparison_levels": [
                 {
-                    "sql_condition": "dob_l IS NULL OR dob_r IS NULL",
+                    "sql_condition": "\"dob_l\" IS NULL OR \"dob_r\" IS NULL",
                     "label_for_charts": "Null",
                     "is_null_level": true
                 },
                 {
-                    "sql_condition": "dob_l = dob_r",
+                    "sql_condition": "\"dob_l\" = \"dob_r\"",
                     "label_for_charts": "Exact match",
-                    "m_probability": 0.39258086363927386,
+                    "m_probability": 0.3906249255200923,
                     "u_probability": 0.0017477477477477479
                 },
                 {
-                    "sql_condition": "levenshtein(dob_l, dob_r) <= 1",
-                    "label_for_charts": "levenshtein <= 1",
-                    "m_probability": 0.14988554656992287,
+                    "sql_condition": "levenshtein(\"dob_l\", \"dob_r\") <= 1",
+                    "label_for_charts": "Levenshtein <= 1",
+                    "m_probability": 0.14914061186886945,
                     "u_probability": 0.0016016016016016017
                 },
                 {
-                    "sql_condition": "levenshtein(dob_l, dob_r) <= 2",
-                    "label_for_charts": "levenshtein <= 2",
-                    "m_probability": 0.2067443495092833,
+                    "sql_condition": "levenshtein(\"dob_l\", \"dob_r\") <= 2",
+                    "label_for_charts": "Levenshtein <= 2",
+                    "m_probability": 0.20576714980270833,
                     "u_probability": 0.015517517517517518
+                },
+                {
+                    "sql_condition": "\n            abs(date_diff('year',strptime(\"dob_l\",\n              '%Y-%m-%d'),strptime(\"dob_r\",\n              '%Y-%m-%d'))) <= 1\n        ",
+                    "label_for_charts": "Within 1 year",
+                    "m_probability": 0.10889583732352638,
+                    "u_probability": 0.047965965965965966
+                },
+                {
+                    "sql_condition": "\n            abs(date_diff('year',strptime(\"dob_l\",\n              '%Y-%m-%d'),strptime(\"dob_r\",\n              '%Y-%m-%d'))) <= 10\n        ",
+                    "label_for_charts": "Within 10 years",
+                    "m_probability": 0.1375697666668864,
+                    "u_probability": 0.2956236236236236
                 },
                 {
                     "sql_condition": "ELSE",
                     "label_for_charts": "All other comparisons",
-                    "m_probability": 0.25078924028151967,
-                    "u_probability": 0.9811331331331331
+                    "m_probability": 0.008001708817917157,
+                    "u_probability": 0.6375435435435436
                 }
             ],
-            "comparison_description": "Exact match vs. levenshtein at thresholds 1, 2 vs. anything else"
+            "comparison_description": "Exact match vs. Dob within levenshtein thresholds 1, 2 vs. Dates within the following thresholds Year(s): 1, Year(s): 10 vs. anything else"
         },
         {
             "output_column_name": "city",
             "comparison_levels": [
                 {
-                    "sql_condition": "city_l IS NULL OR city_r IS NULL",
+                    "sql_condition": "\"city_l\" IS NULL OR \"city_r\" IS NULL",
                     "label_for_charts": "Null",
                     "is_null_level": true
                 },
                 {
-                    "sql_condition": "city_l = city_r",
+                    "sql_condition": "\"city_l\" = \"city_r\"",
                     "label_for_charts": "Exact match",
-                    "m_probability": 0.5656846255360627,
+                    "m_probability": 0.5643265214816382,
                     "u_probability": 0.0551475711801453,
                     "tf_adjustment_column": "city",
                     "tf_adjustment_weight": 1.0
@@ -120,7 +137,7 @@
                 {
                     "sql_condition": "ELSE",
                     "label_for_charts": "All other comparisons",
-                    "m_probability": 0.43431537446393775,
+                    "m_probability": 0.4356734785183618,
                     "u_probability": 0.9448524288198547
                 }
             ],
@@ -130,36 +147,30 @@
             "output_column_name": "email",
             "comparison_levels": [
                 {
-                    "sql_condition": "email_l IS NULL OR email_r IS NULL",
+                    "sql_condition": "\"email_l\" IS NULL OR \"email_r\" IS NULL",
                     "label_for_charts": "Null",
                     "is_null_level": true
                 },
                 {
-                    "sql_condition": "email_l = email_r",
+                    "sql_condition": "\"email_l\" = \"email_r\"",
                     "label_for_charts": "Exact match",
-                    "m_probability": 0.5603584650366957,
+                    "m_probability": 0.56075917685244,
                     "u_probability": 0.0021938713143283602
                 },
                 {
-                    "sql_condition": "levenshtein(email_l, email_r) <= 1",
-                    "label_for_charts": "levenshtein <= 1",
-                    "m_probability": 0.17269329250389986,
-                    "u_probability": 0.0007334349848487773
-                },
-                {
-                    "sql_condition": "levenshtein(email_l, email_r) <= 2",
-                    "label_for_charts": "levenshtein <= 2",
-                    "m_probability": 0.12828947158266213,
-                    "u_probability": 0.000620846281034272
+                    "sql_condition": "levenshtein(\"email_l\", \"email_r\") <= 2",
+                    "label_for_charts": "Levenshtein <= 2",
+                    "m_probability": 0.30121269227183367,
+                    "u_probability": 0.0013542812658830492
                 },
                 {
                     "sql_condition": "ELSE",
                     "label_for_charts": "All other comparisons",
-                    "m_probability": 0.13865877087674205,
+                    "m_probability": 0.13802813087572646,
                     "u_probability": 0.9964518474197885
                 }
             ],
-            "comparison_description": "Exact match vs. levenshtein at thresholds 1, 2 vs. anything else"
+            "comparison_description": "Exact match vs. Email within levenshtein threshold 2 vs. anything else"
         }
     ],
     "blocking_rules_to_generate_predictions": [
@@ -168,8 +179,7 @@
     ],
     "retain_matching_columns": true,
     "retain_intermediate_calculation_columns": true,
-    "additional_columns_to_retain": [
-        "cluster"
-    ],
-    "sql_dialect": "duckdb"
+    "sql_dialect": "duckdb",
+    "linker_uid": "sIGYk6ch",
+    "probability_two_random_records_match": 0.0033319033319033323
 }
