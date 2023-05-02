@@ -180,6 +180,6 @@
     "retain_matching_columns": true,
     "retain_intermediate_calculation_columns": true,
     "sql_dialect": "duckdb",
-    "linker_uid": "Kkhn8VR9",
+    "linker_uid": "sIGYk6ch",
     "probability_two_random_records_match": 0.0033319033319033323
 }
