@@ -21,6 +21,12 @@ jobs:
       #----------------------------------------------
       # Make sure that the demo notebooks run without error
       #----------------------------------------------
-      - name: Test with pytest
+      - name: Test DuckDB example notebooks with pytest
         run: |
-          python -m pytest --nbmake --nbmake-kernel=python3 example_*ipynb
+          python -m pytest --nbmake --nbmake-kernel=python3 examples/duckdb/*ipynb
+      - name: Test Spark example notebooks with pytest
+        run: |
+          python -m pytest --nbmake --nbmake-kernel=python3 examples/spark/*ipynb
+      #- name: Test Athena example notebooks with pytest
+      #  run: |
+      #    python -m pytest --nbmake --nbmake-kernel=python3 examples/athena/*ipynb
