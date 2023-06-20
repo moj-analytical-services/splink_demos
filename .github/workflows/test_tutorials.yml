@@ -23,4 +23,4 @@ jobs:
       #----------------------------------------------
       - name: Test with pytest
         run: |
-          python -m pytest --nbmake --nbmake-kernel=python3 0[0-6]_*ipynb
+          python -m pytest --nbmake --nbmake-kernel=python3 tutorials/*ipynb
