@@ -1,5 +1,5 @@
 importlib-resources==5.4.0
-jupyterlab==3.6.1
+jupyterlab==3.6.7
 pyarrow==7.0.0
 splink==3.9.3
 ipywidgets==8.0.4
