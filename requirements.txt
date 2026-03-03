@@ -1,8 +1,4 @@
-importlib-resources==5.4.0
-jupyterlab==3.6.1
-pyarrow==7.0.0
-splink==3.9.3
-ipywidgets==8.0.4
-nbmake==1.3.4
-pytest==7.1.2
-pyspark==3.2.1
+# suggestive versions - feel free to use any other suitable environment
+jupyterlab==4.5.5
+pyarrow==23.0.1
+splink==4.0.15
