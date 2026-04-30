@@ -1,4 +1,4 @@
 # suggestive versions - feel free to use any other suitable environment
-jupyterlab==4.5.5
+jupyterlab==4.5.7
 pyarrow==23.0.1
 splink==4.0.15
